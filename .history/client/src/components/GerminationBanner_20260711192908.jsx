@@ -6,7 +6,7 @@ export default function GerminationBanner() {
   return (
     <div className="glass-card p-4 md:p-6 flex items-center gap-4 border-purple/20">
       <img
-        src="/gp-logo.jpg" 
+        src="/gp-logo.png" 
         alt="Germination Project Logo"
         className="w-10 h-10 rounded-lg flex-shrink-0"
       />

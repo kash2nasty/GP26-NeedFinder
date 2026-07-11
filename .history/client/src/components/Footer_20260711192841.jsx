@@ -46,7 +46,7 @@ export default function Footer() {
               className="flex items-center gap-3 group"
             >
               <img
-                src="/gp-logo.jpg"
+                src="/gp-logo.png"
                 alt="Germination Project Logo"
                 className="w-12 h-12 rounded-lg"
               />
