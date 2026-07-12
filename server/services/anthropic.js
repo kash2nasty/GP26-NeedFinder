@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 const VALID_CATEGORIES = [
   'food', 'housing', 'healthcare', 'childcare', 'utilities',
@@ -187,57 +187,62 @@ Return at least 8-15 programs when possible. Only return the JSON array, no mark
 }
 
 function buildUserPrompt(intake) {
-  return `Analyze eligibility for this Northeast US resident:
-
-LOCATION:
+  return `You are a benefits eligibility expert for the Northeast United States. 
+A user has submitted the following information:
 - State: ${intake.state}
-- County/City: ${intake.county}
-
-HOUSEHOLD:
+- County: ${intake.county}
 - Household size: ${intake.householdSize}
-- Head of household: ${intake.isHeadOfHousehold ? 'Yes' : 'No'}
-
-FINANCIAL:
 - Annual household income: $${intake.annualIncome}
 - Employment status: ${intake.employmentStatus}
-- Currently receiving assistance: ${intake.currentAssistance?.length ? intake.currentAssistance.join(', ') : 'None'}
-
-DEMOGRAPHICS:
 - Age: ${intake.age}
-- Race/Ethnicity: ${intake.raceEthnicity?.join(', ') || 'Not specified'}
 - Gender: ${intake.gender}
-- Veteran: ${intake.isVeteran ? 'Yes' : 'No'}
-- Disability: ${intake.hasDisability ? 'Yes' : 'No'}
-- Immigration/Citizenship: ${intake.immigrationStatus}
+- Race/Ethnicity: ${intake.raceEthnicity?.join(', ') || 'Not specified'}
+- Veteran status: ${intake.isVeteran ? 'Yes' : 'No'}
+- Disability status: ${intake.hasDisability ? 'Yes' : 'No'}
+- Immigration/citizenship status: ${intake.immigrationStatus}
+- Currently receiving assistance: ${intake.currentAssistance?.length ? intake.currentAssistance.join(', ') : 'None'}
+- Areas of need: ${intake.needs?.join(', ') || 'General assistance'}
+- Head of household: ${intake.isHeadOfHousehold ? 'Yes' : 'No'}
 
-SPECIFIC NEEDS:
-${intake.needs?.map(n => `- ${n}`).join('\n') || '- General assistance'}
+You must return a minimum of 15 programs. Do not stop at the obvious federal programs. Include state specific programs for ${intake.state}, county level resources for ${intake.county}, local nonprofit programs, tax credits, workforce programs, housing assistance, legal aid, childcare subsidies, and any other relevant assistance this specific user qualifies for based on every detail of their profile. A response with fewer than 15 programs is incomplete.
 
-Return the JSON array of qualifying programs.`;
+Based on ALL of this specific information, return a comprehensive and personalized JSON array of EVERY federal, state, and local benefit program this specific person qualifies for. Return AT LEAST 15 programs and as many as 40 if applicable. Each program must be directly relevant to this person's specific situation — do not return generic programs that don't apply to their profile. Do not return the same programs regardless of input.
+
+Return only a raw JSON array with no markdown, no backticks, no explanation. Each object must have these exact fields: program_name, agency, description, eligibility_reason, required_documents, apply_url, category, is_federal.
+
+Do not use em dashes anywhere in your response. Use commas, colons, or hyphens instead.`;
 }
 
 function parseProgramsResponse(text) {
   let cleaned = text.trim();
-  if (cleaned.startsWith('```')) {
-    cleaned = cleaned.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+  
+  // Remove markdown code blocks
+  cleaned = cleaned.replace(/^```(?:json)?\n?/i, '').replace(/\n?```$/, '');
+  
+  // Remove any leading/trailing non-JSON content
+  cleaned = cleaned.replace(/^[^{[]*/, '').replace(/[^}\]]*$/, '');
+  
+  try {
+    const parsed = JSON.parse(cleaned);
+    if (!Array.isArray(parsed)) {
+      throw new Error('AI response is not an array');
+    }
+    return parsed.map((program, index) => ({
+      id: `program-${index}-${Date.now()}`,
+      program_name: program.program_name || 'Unknown Program',
+      agency: program.agency || 'Government Agency',
+      description: program.description || '',
+      eligibility_reason: program.eligibility_reason || '',
+      required_documents: Array.isArray(program.required_documents) ? program.required_documents : [],
+      apply_url: program.apply_url || '#',
+      category: VALID_CATEGORIES.includes(program.category) ? program.category : 'food',
+      is_federal: Boolean(program.is_federal),
+    }));
+  } catch (parseError) {
+    console.error('JSON parsing error:', parseError.message);
+    console.error('Cleaned text:', cleaned.substring(0, 500));
+    throw new Error(`Failed to parse AI response: ${parseError.message}`);
   }
-
-  const parsed = JSON.parse(cleaned);
-  if (!Array.isArray(parsed)) {
-    throw new Error('AI response is not an array');
-  }
-
-  return parsed.map((program, index) => ({
-    id: `program-${index}-${Date.now()}`,
-    program_name: program.program_name || 'Unknown Program',
-    agency: program.agency || 'Government Agency',
-    description: program.description || '',
-    eligibility_reason: program.eligibility_reason || '',
-    required_documents: Array.isArray(program.required_documents) ? program.required_documents : [],
-    apply_url: program.apply_url || '#',
-    category: VALID_CATEGORIES.includes(program.category) ? program.category : 'food',
-    is_federal: Boolean(program.is_federal),
-  }));
 }
 
 function getFallbackPrograms(intake, language) {
@@ -300,6 +305,10 @@ function getFallbackPrograms(intake, language) {
 }
 
 export async function analyzeEligibility(intake, language = 'en') {
+  console.log('=== Eligibility Analysis Request ===');
+  console.log('Full intake data:', JSON.stringify(intake, null, 2));
+  console.log('Language:', language);
+
   if (!process.env.GEMINI_API_KEY) {
     console.warn('No Gemini API key, returning fallback programs');
     return getFallbackPrograms(intake, language);
@@ -307,9 +316,38 @@ export async function analyzeEligibility(intake, language = 'en') {
 
   try {
     const fullPrompt = `${buildSystemPrompt(language)}\n\n${buildUserPrompt(intake)}`;
-    const result = await model.generateContent(fullPrompt);
-    const text = result.response.text;
-    return parseProgramsResponse(text);
+    console.log('Sending prompt to Gemini...');
+    
+    let programs;
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    while (retryCount <= maxRetries) {
+      const result = await model.generateContent(fullPrompt);
+      const text = result.response.text;
+      console.log('Gemini response received, length:', text.length);
+      
+      programs = parseProgramsResponse(text);
+      console.log('Parsed programs count:', programs.length);
+      
+      // If we have more than 3 programs, we're good
+      if (programs.length > 3) {
+        break;
+      }
+      
+      // If we have 3 or fewer programs and haven't hit max retries, retry
+      if (retryCount < maxRetries) {
+        console.log(`Only ${programs.length} programs returned, retrying (${retryCount + 1}/${maxRetries})...`);
+        const retryPrompt = fullPrompt + `\n\nYour previous response only returned ${programs.length} programs. This is not enough. This user qualifies for far more than ${programs.length} programs based on their profile. Return at least 15 programs total including the ones you already found plus additional federal, state, county, and local programs specific to ${intake.state} and ${intake.county}. Be thorough and dig into lesser known programs beyond the obvious ones.`;
+        programs = parseProgramsResponse((await model.generateContent(retryPrompt)).response.text);
+        retryCount++;
+      } else {
+        console.warn(`Still only ${programs.length} programs after ${maxRetries} retries, returning as-is`);
+        break;
+      }
+    }
+    
+    return programs;
   } catch (error) {
     console.error('Gemini API error:', error.message);
     throw error;

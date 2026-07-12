@@ -159,6 +159,16 @@ export default function Results() {
           <p className="text-accent text-xs md:text-sm mt-2">
             {t('results.programsFound', { count: programs.length })}
           </p>
+          {programs.length <= 3 && (
+            <p className="text-white/50 text-xs mt-1">
+              We may have more results for you — try again.
+            </p>
+          )}
+          {programs.length > 3 && programs.length < 15 && (
+            <p className="text-white/50 text-xs mt-1">
+              We found {programs.length} programs for your profile. Try adjusting your criteria to see more options.
+            </p>
+          )}
         </motion.div>
 
         {/* Actions */}
