@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  'https://gp26-needfinder.vercel.app',
   'http://localhost:5173',
   'http://localhost:4173',
 ].filter(Boolean);

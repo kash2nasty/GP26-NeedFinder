@@ -1,9 +1,11 @@
 import { Router } from 'express';
+import cors from 'cors';
 import { analyzeEligibility, getFallbackPrograms } from '../services/anthropic.js';
 import { saveSession } from '../services/supabase.js';
 
 const router = Router();
 
+router.options('/analyze', cors());
 router.post('/analyze', async (req, res) => {
   try {
     const { intake, language = 'en' } = req.body;

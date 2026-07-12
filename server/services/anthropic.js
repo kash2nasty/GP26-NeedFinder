@@ -1,8 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 const VALID_CATEGORIES = [
   'food', 'housing', 'healthcare', 'childcare', 'utilities',
@@ -301,29 +300,18 @@ function getFallbackPrograms(intake, language) {
 }
 
 export async function analyzeEligibility(intake, language = 'en') {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.warn('No Anthropic API key, returning fallback programs');
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn('No Gemini API key, returning fallback programs');
     return getFallbackPrograms(intake, language);
   }
 
   try {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 8192,
-      system: buildSystemPrompt(language),
-      messages: [
-        { role: 'user', content: buildUserPrompt(intake) },
-      ],
-    });
-
-    const textBlock = response.content.find(block => block.type === 'text');
-    if (!textBlock) {
-      throw new Error('No text response from AI');
-    }
-
-    return parseProgramsResponse(textBlock.text);
+    const fullPrompt = `${buildSystemPrompt(language)}\n\n${buildUserPrompt(intake)}`;
+    const result = await model.generateContent(fullPrompt);
+    const text = result.response.text;
+    return parseProgramsResponse(text);
   } catch (error) {
-    console.error('Anthropic API error:', error.message);
+    console.error('Gemini API error:', error.message);
     throw error;
   }
 }
