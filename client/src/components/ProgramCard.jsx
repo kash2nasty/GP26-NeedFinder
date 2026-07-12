@@ -28,10 +28,10 @@ export default function ProgramCard({ program, isSaved, onSave }) {
               </span>
             )}
           </div>
-          <h3 className="font-display font-semibold text-lg text-white group-hover:text-accent transition-colors">
+          <h3 className="font-display font-semibold text-base md:text-lg text-white group-hover:text-accent transition-colors">
             {program.program_name}
           </h3>
-          <p className="text-white/50 text-sm">{program.agency}</p>
+          <p className="text-white/50 text-xs md:text-sm">{program.agency}</p>
         </div>
         <button
           onClick={() => onSave(program.id)}
@@ -46,15 +46,15 @@ export default function ProgramCard({ program, isSaved, onSave }) {
         </button>
       </div>
 
-      <p className="text-white/70 text-sm leading-relaxed mb-4">
+      <p className="text-white/70 text-xs md:text-sm leading-relaxed mb-4">
         {program.description}
       </p>
 
-      <div className="bg-accent/5 border border-accent/10 rounded-xl p-4 mb-4">
+      <div className="bg-accent/5 border border-accent/10 rounded-xl p-3 md:p-4 mb-4">
         <p className="text-xs font-semibold text-accent mb-1 uppercase tracking-wide">
           {t('results.eligibility')}
         </p>
-        <p className="text-white/70 text-sm">{program.eligibility_reason}</p>
+        <p className="text-white/70 text-xs md:text-sm">{program.eligibility_reason}</p>
       </div>
 
       {program.required_documents?.length > 0 && (
@@ -64,7 +64,7 @@ export default function ProgramCard({ program, isSaved, onSave }) {
           </p>
           <ul className="space-y-1">
             {program.required_documents.map((doc, i) => (
-              <li key={i} className="text-sm text-white/60 flex items-start gap-2">
+              <li key={i} className="text-xs md:text-sm text-white/60 flex items-start gap-2">
                 <span className="text-accent mt-0.5">•</span>
                 {doc}
               </li>
@@ -77,10 +77,10 @@ export default function ProgramCard({ program, isSaved, onSave }) {
         href={program.apply_url}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-glow w-full text-sm py-2.5 flex items-center justify-center gap-2"
+        className="btn-glow w-full text-xs md:text-sm py-2 md:py-2.5 flex items-center justify-center gap-2"
       >
         {t('results.apply')}
-        <ExternalLink size={16} />
+        <ExternalLink size={14} />
       </a>
     </motion.div>
   );

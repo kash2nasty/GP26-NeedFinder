@@ -32,7 +32,155 @@ Return ONLY a valid JSON array. Each object must have exactly these fields:
 - category (one of: ${VALID_CATEGORIES.join(', ')})
 - is_federal (boolean)
 
-Be thorough - include SNAP, Medicaid, LIHEAP, WIC, Section 8, unemployment, state-specific programs, local food banks with official programs, energy assistance, childcare subsidies, veterans benefits, disability programs, immigrant-eligible programs where applicable, and any other relevant programs.
+Be thorough - include ALL of the following programs when relevant:
+
+FEDERAL PROGRAMS:
+- SNAP (Supplemental Nutrition Assistance Program)
+- Medicaid
+- Medicare
+- CHIP (Children's Health Insurance Program)
+- WIC (Women, Infants, and Children)
+- TANF (Temporary Assistance for Needy Families)
+- SSI (Supplemental Security Income)
+- SSDI (Social Security Disability Insurance)
+- Social Security benefits
+- Housing Choice Voucher (Section 8)
+- Public Housing
+- HOME Investment Partnerships Program
+- LIHEAP (Low Income Home Energy Assistance Program)
+- Head Start
+- Early Head Start
+- FAFSA / Pell Grant
+- Federal Work Study
+- Perkins Loan
+- AmeriCorps
+- Job Corps
+- WIOA (Workforce Innovation and Opportunity Act) workforce training
+- Veterans Benefits: VA healthcare, disability compensation, pension, education GI Bill, home loan
+- EITC (Earned Income Tax Credit)
+- Child Tax Credit
+- Child and Dependent Care Tax Credit
+- Free and Reduced School Lunch
+- School Breakfast Program
+- Summer Food Service Program
+- USDA Rural Development loans
+- FHA loans
+- Community Development Block Grants
+- Ryan White HIV/AIDS Program
+- Substance Abuse treatment grants
+- Mental Health block grants
+
+PENNSYLVANIA SPECIFIC:
+- COMPASS benefits portal
+- PA Medical Assistance
+- PA CHIP
+- PA Cash Assistance
+- PA Food Assistance
+- PACENET/PACE (prescription assistance for seniors)
+- Property Tax/Rent Rebate Program
+- PA Student Assistance Program (PHEAA)
+- PA CareerLink workforce centers
+- Rapid Housing Assistance
+- Emergency Rental Assistance Program
+- Utility Emergency Services Fund (UESF)
+- Low Income Home Energy Assistance
+- Philadelphia Housing Authority programs
+- Philly Office of Homeless Services
+- PA Department of Aging services
+- Statewide Adoption Network
+- PA Legal Aid Network
+- Community Legal Services Philadelphia
+- Philadelphia Water Revenue Bureau assistance
+- Philly Neighborhood Energy Centers
+
+NEW YORK SPECIFIC:
+- NY SNAP
+- NY Medicaid
+- NY CHIP
+- Empire State Child Credit
+- NY Earned Income Credit
+- HEAP (Home Energy Assistance)
+- NY Rental Assistance
+- NYCHA housing
+- NY Office of Temporary and Disability Assistance programs
+- NY State Education Department grants
+- Excelsior Scholarship
+- NY tuition assistance program (TAP)
+- NY Legal Aid Society
+- NY Office for the Aging
+
+NEW JERSEY SPECIFIC:
+- NJ FamilyCare
+- NJ SNAP
+- WorkFirst NJ
+- NJ Earned Income Tax Credit
+- LIHEAP NJ
+- NJ Affordable Housing programs
+- NJ Department of Human Services programs
+- NJ Transit reduced fare
+- Senior Gold Prescription Discount
+- NJ Legal Services
+
+MASSACHUSETTS SPECIFIC:
+- MassHealth
+- MA SNAP
+- Emergency Aid to Elders Disabled and Children
+- MA Rental Voucher Program
+- Residential Assistance for Families in Transition
+- MA Department of Transitional Assistance programs
+- MA Education Financing Authority
+- MA Legal Aid
+
+CONNECTICUT SPECIFIC:
+- HUSKY Health (Medicaid/CHIP)
+- CT SNAP
+- Connecticut Energy Assistance Program
+- RENTConnect
+- Connecticut Homecare Program for Elders
+- CT Department of Social Services programs
+
+MARYLAND SPECIFIC:
+- Maryland Medicaid
+- MD SNAP
+- Maryland Energy Assistance Program
+- Maryland Rental Assistance
+- MD CASH Campaign tax credits
+- Maryland Legal Aid
+
+MAINE SPECIFIC:
+- MaineCare
+- ME SNAP
+- Maine Housing programs
+- Maine Energy Assistance
+- Maine Legal Services
+
+NEW HAMPSHIRE SPECIFIC:
+- NH Medicaid
+- NH SNAP
+- NH Electric Assistance Program
+- NH Housing Finance Authority
+- NH Legal Assistance
+
+RHODE ISLAND SPECIFIC:
+- Medicaid RI
+- RI SNAP
+- RIHousing programs
+- RI Energy Assistance
+- Rhode Island Legal Services
+
+VERMONT SPECIFIC:
+- Vermont Medicaid
+- VT SNAP
+- Vermont Rental Housing Vouchers
+- HEAT program
+- Vermont Legal Aid
+
+DELAWARE SPECIFIC:
+- Delaware Medicaid
+- DE SNAP
+- Delaware Housing Assistance
+- LIHEAP Delaware
+- Community Legal Aid Society
 
 Consider the user's state, county, income, household size, demographics, employment status, veteran/disability status, immigration status, and specific needs.
 

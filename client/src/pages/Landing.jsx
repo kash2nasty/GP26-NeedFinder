@@ -27,12 +27,6 @@ export default function Landing() {
     { value: '2', label: t('stats.languages') },
   ];
 
-  const testimonials = [
-    { quote: t('testimonials.t1Quote'), name: t('testimonials.t1Name'), location: t('testimonials.t1Location') },
-    { quote: t('testimonials.t2Quote'), name: t('testimonials.t2Name'), location: t('testimonials.t2Location') },
-    { quote: t('testimonials.t3Quote'), name: t('testimonials.t3Name'), location: t('testimonials.t3Location') },
-  ];
-
   return (
     <div className="overflow-hidden">
       {/* Hero */}
@@ -49,7 +43,7 @@ export default function Landing() {
               AI-Powered Benefits Navigator
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
               {i18n.language === 'es' ? (
                 <>Encuentra cada beneficio que te corresponde. <span className="text-accent">En segundos.</span></>
               ) : (
@@ -57,11 +51,11 @@ export default function Landing() {
               )}
             </h1>
 
-            <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
               {t('hero.subtitle')}
             </p>
 
-            <Link to="/intake" className="btn-glow text-lg px-8 py-4 animate-glow inline-flex">
+            <Link to="/intake" className="btn-glow text-base md:text-lg px-6 md:px-8 py-3 md:py-4 animate-glow inline-flex">
               {t('hero.cta')}
             </Link>
           </motion.div>
@@ -85,10 +79,10 @@ export default function Landing() {
               <div className="inline-block px-4 py-2 bg-accent/10 border border-accent/20 rounded-full">
                 <span className="text-accent text-sm font-medium">How It Works</span>
               </div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
                 Three simple steps to discover every program you qualify for
               </h2>
-              <p className="text-white/60 text-lg leading-relaxed">
+              <p className="text-white/60 text-base md:text-lg leading-relaxed">
                 No complicated forms, no waiting on hold. Just answer a few questions and get your personalized benefits list in under 2 minutes.
               </p>
             </motion.div>
@@ -108,8 +102,8 @@ export default function Landing() {
                   </div>
                   <div>
                     <div className="text-accent font-display font-bold text-sm mb-1">Step {i + 1}</div>
-                    <h3 className="font-display font-semibold text-xl mb-2 text-white">{step.title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed">{step.desc}</p>
+                    <h3 className="font-display font-semibold text-lg md:text-xl mb-2 text-white">{step.title}</h3>
+                    <p className="text-white/50 text-xs md:text-sm leading-relaxed">{step.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -142,10 +136,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div {...fadeUp}>
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 Covering the entire Northeast
               </h2>
-              <p className="text-white/60 text-lg mb-8 leading-relaxed">
+              <p className="text-white/60 text-base md:text-lg mb-8 leading-relaxed">
                 We track programs across all 11 Northeast states, from Connecticut to Vermont. Whether you are in Philadelphia, Boston, or anywhere in between, we have you covered.
               </p>
               <div className="space-y-4">
@@ -165,64 +159,31 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Testimonials - Featured Quote Layout */}
-      <section className="py-32 px-4 sm:px-6 bg-gradient-to-br from-purple/10 to-navy">
+      {/* By the Numbers - Impact Statistics */}
+      <section className="py-32 px-4 sm:px-6 bg-navy">
         <div className="max-w-7xl mx-auto">
-          <motion.div {...fadeUp} className="mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Real Stories, Real Impact</h2>
-            <p className="text-white/60 text-lg">See how GP 26 NeedFinder has helped people across the Northeast</p>
+          <motion.div {...fadeUp} className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">By the Numbers</h2>
+            <p className="text-white/60 text-base md:text-lg">The benefits gap in the Northeast</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <motion.div
-              {...fadeUp}
-              className="lg:col-span-2 glass-card p-8 md:p-12 bg-gradient-to-br from-accent/10 to-transparent"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-purple flex items-center justify-center text-navy font-display font-bold text-2xl">
-                  {testimonials[0].name[0]}
-                </div>
-                <div>
-                  <p className="font-semibold text-xl text-white">{testimonials[0].name}</p>
-                  <p className="text-white/50">{testimonials[0].location}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 mb-6">
-                {[1, 2, 3, 4, 5].map(star => (
-                  <span key={star} className="text-yellow-400 text-xl">★</span>
-                ))}
- </div>
-              <p className="text-white/80 text-xl md:text-2xl leading-relaxed italic">
-                &ldquo;{testimonials[0].quote}&rdquo;
-              </p>
-            </motion.div>
-
-            <div className="space-y-6">
-              {testimonials.slice(1).map((item, i) => (
-                <motion.div
-                  key={i}
-                  {...fadeUp}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                  className="glass-card p-6 hover:border-accent/20 transition-all"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-display font-bold">
-                      {item.name[0]}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white">{item.name}</p>
-                      <p className="text-white/40 text-xs">{item.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 mb-3">
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <span key={star} className="text-yellow-400 text-sm">★</span>
-                    ))}
-                  </div>
-                  <p className="text-white/60 text-sm leading-relaxed italic">&ldquo;{item.quote}&rdquo;</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { value: '$80B+', label: 'Unclaimed benefits annually in the Northeast' },
+              { value: '40%', label: 'Eligible people who do not claim benefits' },
+              { value: '15M+', label: 'Northeast residents missing out on aid' },
+              { value: '12.5%', label: 'Average poverty rate across Northeast states' },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                {...fadeUp}
+                transition={{ delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-3 text-accent">{stat.value}</div>
+                <div className="text-white/70 text-sm md:text-base lg:text-lg leading-relaxed">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -232,10 +193,10 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <motion.div {...fadeUp}>
-              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 Frequently Asked Questions
               </h2>
-              <p className="text-white/60 text-lg mb-8 leading-relaxed">
+              <p className="text-white/60 text-base md:text-lg mb-8 leading-relaxed">
                 Got questions? We have answers. Here are the most common things people ask about GP 26 NeedFinder.
               </p>
               <div className="inline-flex items-center gap-2 text-accent font-medium">
@@ -288,13 +249,13 @@ export default function Landing() {
       <section className="py-32 px-4 sm:px-6 bg-navy">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div {...fadeUp}>
-            <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-6xl font-bold mb-6 leading-tight text-white">
               Start finding your benefits today
             </h2>
-            <p className="text-white/80 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/80 text-base md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Answer a few questions and get your personalized list of benefits in under 2 minutes. No cost, no signup required.
             </p>
-            <Link to="/intake" className="btn-glow text-lg px-10 py-4">
+            <Link to="/intake" className="btn-glow text-base md:text-lg px-6 md:px-10 py-3 md:py-4">
               {t('hero.cta')}
             </Link>
           </motion.div>

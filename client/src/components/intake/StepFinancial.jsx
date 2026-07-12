@@ -29,12 +29,12 @@ export default function StepFinancial({ data, updateData }) {
       className="space-y-6"
     >
       <div>
-        <h2 className="font-display text-2xl font-bold mb-1">{t('intake.step3Title')}</h2>
-        <p className="text-white/50 text-sm">{t('intake.step3Desc')}</p>
+        <h2 className="font-display text-xl md:text-2xl font-bold mb-1">{t('intake.step3Title')}</h2>
+        <p className="text-white/50 text-xs md:text-sm">{t('intake.step3Desc')}</p>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-2">
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-2">
           {t('intake.annualIncome')}: <span className="text-accent font-bold">${data.annualIncome.toLocaleString()}</span>
         </label>
         <input
@@ -54,7 +54,7 @@ export default function StepFinancial({ data, updateData }) {
           type="number"
           value={data.annualIncome}
           onChange={e => updateData({ annualIncome: parseInt(e.target.value, 10) || 0 })}
-          className="mt-3 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-accent/50"
+          className="mt-3 w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 text-white focus:outline-none focus:border-accent/50 text-sm md:text-base"
           min={0}
         />
       </div>
@@ -64,7 +64,7 @@ export default function StepFinancial({ data, updateData }) {
         <select
           value={data.employmentStatus}
           onChange={e => updateData({ employmentStatus: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer text-sm md:text-base"
         >
           <option value="" className="bg-charcoal">{t('intake.selectEmployment')}</option>
           {EMPLOYMENT_OPTIONS.map(opt => (
@@ -76,7 +76,7 @@ export default function StepFinancial({ data, updateData }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-3">{t('intake.currentAssistance')}</label>
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-3">{t('intake.currentAssistance')}</label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {ASSISTANCE_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-center gap-2 cursor-pointer group p-2 rounded-lg hover:bg-white/5">

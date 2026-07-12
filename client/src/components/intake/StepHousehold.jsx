@@ -13,29 +13,29 @@ export default function StepHousehold({ data, updateData }) {
       className="space-y-6"
     >
       <div>
-        <h2 className="font-display text-2xl font-bold mb-1">{t('intake.step2Title')}</h2>
-        <p className="text-white/50 text-sm">{t('intake.step2Desc')}</p>
+        <h2 className="font-display text-xl md:text-2xl font-bold mb-1">{t('intake.step2Title')}</h2>
+        <p className="text-white/50 text-xs md:text-sm">{t('intake.step2Desc')}</p>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-4">{t('intake.householdSize')}</label>
-        <div className="flex items-center gap-6">
+        <label className="block text-sm md:text-base font-medium text-white/70 mb-4">{t('intake.householdSize')}</label>
+        <div className="flex items-center gap-4 md:gap-6">
           <button
             type="button"
             onClick={() => updateData({ householdSize: Math.max(1, data.householdSize - 1) })}
-            className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:text-accent transition-all"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:text-accent transition-all"
           >
-            <Minus size={20} />
+            <Minus size={16} />
           </button>
-          <span className="font-display text-4xl font-bold text-accent w-16 text-center">
+          <span className="font-display text-3xl md:text-4xl font-bold text-accent w-12 md:w-16 text-center">
             {data.householdSize}
           </span>
           <button
             type="button"
             onClick={() => updateData({ householdSize: Math.min(20, data.householdSize + 1) })}
-            className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:text-accent transition-all"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:text-accent transition-all"
           >
-            <Plus size={20} />
+            <Plus size={16} />
           </button>
         </div>
       </div>

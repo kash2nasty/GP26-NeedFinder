@@ -61,7 +61,6 @@ export default function Intake() {
         programs: result.programs,
         intake: data,
         sessionId: result.sessionId,
-        firstName: data.firstName,
       }));
       navigate('/results');
     } catch (err) {
@@ -95,10 +94,10 @@ export default function Intake() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-center mb-2">
+          <h1 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-center mb-2">
             {t('intake.title')}
           </h1>
-          <p className="text-white/50 text-sm text-center">
+          <p className="text-white/50 text-xs md:text-sm text-center">
             {t('intake.step', { current: step + 1, total: TOTAL_STEPS })}
           </p>
         </motion.div>
@@ -115,7 +114,7 @@ export default function Intake() {
           </div>
         </div>
 
-        <div className="glass-card p-6 md:p-8 mb-6 min-h-[400px]">
+        <div className="glass-card p-4 md:p-6 lg:p-8 mb-6 min-h-[350px] md:min-h-[400px]">
           <AnimatePresence mode="wait">
             <StepComponent key={step} data={data} updateData={updateData} />
           </AnimatePresence>
@@ -123,27 +122,33 @@ export default function Intake() {
 
         {error && (
           <div className="mb-4 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
-            {error}
+            <p className="mb-2">{error}</p>
+            <button
+              onClick={handleNext}
+              className="text-accent underline hover:text-accent/80"
+            >
+              {t('results.retry') || 'Retry'}
+            </button>
           </div>
         )}
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-2 md:gap-4">
           <button
             onClick={handleBack}
             disabled={step === 0}
-            className="flex items-center gap-1 px-4 py-3 rounded-xl text-white/60 hover:text-white disabled:opacity-30 transition-colors"
+            className="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 rounded-xl text-white/60 hover:text-white disabled:opacity-30 transition-colors text-xs md:text-sm"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={16} />
             {t('intake.back')}
           </button>
 
           <button
             onClick={handleNext}
             disabled={!canProceed}
-            className="btn-glow flex items-center gap-1 disabled:opacity-40 disabled:hover:scale-100 disabled:hover:shadow-none"
+            className="btn-glow flex items-center gap-1 px-4 md:px-6 py-2 md:py-3 disabled:opacity-40 disabled:hover:scale-100 disabled:hover:shadow-none text-xs md:text-sm"
           >
             {step === TOTAL_STEPS - 1 ? t('intake.submit') : t('intake.next')}
-            <ChevronRight size={20} />
+            <ChevronRight size={16} />
           </button>
         </div>
       </div>

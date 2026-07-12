@@ -23,11 +23,11 @@ export default function StepNeeds({ data, updateData }) {
       className="space-y-6"
     >
       <div>
-        <h2 className="font-display text-2xl font-bold mb-1">{t('intake.step5Title')}</h2>
-        <p className="text-white/50 text-sm">{t('intake.step5Desc')}</p>
+        <h2 className="font-display text-xl md:text-2xl font-bold mb-1">{t('intake.step5Title')}</h2>
+        <p className="text-white/50 text-xs md:text-sm">{t('intake.step5Desc')}</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
         {NEEDS_OPTIONS.map(opt => {
           const selected = data.needs?.includes(opt.value);
           return (
@@ -35,14 +35,14 @@ export default function StepNeeds({ data, updateData }) {
               key={opt.value}
               type="button"
               onClick={() => toggleNeed(opt.value)}
-              className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all duration-300 ${
+              className={`flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-xl border text-left transition-all duration-300 ${
                 selected
                   ? 'border-accent bg-accent/10 shadow-[0_0_20px_rgba(0,255,135,0.15)]'
                   : 'border-white/10 bg-white/5 hover:border-white/20'
               }`}
             >
-              <span className="text-2xl">{opt.icon}</span>
-              <span className={`text-sm font-medium ${selected ? 'text-accent' : 'text-white/70'}`}>
+              <span className="text-xl md:text-2xl">{opt.icon}</span>
+              <span className={`text-xs md:text-sm font-medium ${selected ? 'text-accent' : 'text-white/70'}`}>
                 {lang === 'es' ? opt.labelEs : opt.labelEn}
               </span>
             </button>

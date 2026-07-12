@@ -238,7 +238,7 @@ export default function ResourceMap({ resources = [], state = 'PA' }) {
         <div className="p-4 border-b border-white/10">
           <p className="text-white/50 text-sm">{t('map.noToken')}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 max-h-[28rem] overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 max-h-[20rem] overflow-y-auto">
           {filteredResources.map(r => (
             <ResourceListCard
               key={r.id}
@@ -272,8 +272,8 @@ export default function ResourceMap({ resources = [], state = 'PA' }) {
         ))}
       </div>
 
-      <div className="flex flex-col lg:flex-row h-[32rem] md:h-[36rem] lg:h-[28rem]">
-        <div className="lg:w-[360px] xl:w-[400px] border-b lg:border-b-0 lg:border-r border-white/10 overflow-y-auto max-h-64 lg:max-h-none flex-shrink-0 bg-navy/30">
+      <div className="flex flex-col lg:flex-row h-[28rem] md:h-[32rem] lg:h-[28rem]">
+        <div className="lg:w-[320px] xl:w-[360px] border-b lg:border-b-0 lg:border-r border-white/10 overflow-y-auto max-h-48 lg:max-h-none flex-shrink-0 bg-navy/30">
           {filteredResources.length === 0 ? (
             <p className="p-6 text-white/40 text-sm text-center">{t('map.noResources')}</p>
           ) : (
@@ -289,7 +289,7 @@ export default function ResourceMap({ resources = [], state = 'PA' }) {
           )}
         </div>
 
-        <div className="flex-1 min-h-[20rem] lg:min-h-0 relative bg-charcoal/50">
+        <div className="flex-1 min-h-[16rem] lg:min-h-0 relative bg-charcoal/50">
           <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
         </div>
       </div>
@@ -304,20 +304,20 @@ function ResourceListCard({ resource, lang, selected, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left p-5 border-b border-border transition-all duration-300 hover:bg-accent/5 ${
+      className={`w-full text-left p-4 border-b border-white/10 transition-all duration-300 hover:bg-accent/5 ${
         selected ? 'bg-accent/10 border-l-4 border-l-accent' : 'border-l-4 border-l-transparent'
       }`}
     >
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <p className="font-semibold text-base text-body leading-tight">{resource.name}</p>
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <p className="font-semibold text-sm text-white leading-tight">{resource.name}</p>
         {resource.distance != null && (
           <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full whitespace-nowrap">
             {resource.distance.toFixed(1)} mi
           </span>
         )}
       </div>
-      <p className="text-sm text-accent-secondary mb-2 font-medium">{category}</p>
-      <p className="text-xs text-muted flex items-start gap-2 leading-relaxed">
+      <p className="text-xs text-accent mb-2 font-medium">{category}</p>
+      <p className="text-xs text-white/60 flex items-start gap-2 leading-relaxed">
         <MapPin size={13} className="mt-0.5 flex-shrink-0 text-accent/70" />
         {resource.address}
       </p>

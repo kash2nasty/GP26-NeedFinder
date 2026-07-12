@@ -24,35 +24,24 @@ export default function StepDemographics({ data, updateData }) {
       className="space-y-6"
     >
       <div>
-        <h2 className="font-display text-2xl font-bold mb-1">{t('intake.step4Title')}</h2>
-        <p className="text-white/50 text-sm">{t('intake.step4Desc')}</p>
+        <h2 className="font-display text-xl md:text-2xl font-bold mb-1">{t('intake.step4Title')}</h2>
+        <p className="text-white/50 text-xs md:text-sm">{t('intake.step4Desc')}</p>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-2">{t('intake.firstName')}</label>
-        <input
-          type="text"
-          value={data.firstName}
-          onChange={e => updateData({ firstName: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50"
-          placeholder="Maria"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white/70 mb-2">{t('intake.age')}</label>
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-2">{t('intake.age')}</label>
         <input
           type="number"
           value={data.age}
           onChange={e => updateData({ age: parseInt(e.target.value, 10) || 0 })}
           min={1}
           max={120}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 text-sm md:text-base"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-3">{t('intake.raceEthnicity')}</label>
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-3">{t('intake.raceEthnicity')}</label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {RACE_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-center gap-2 cursor-pointer group p-2 rounded-lg hover:bg-white/5">
@@ -71,11 +60,11 @@ export default function StepDemographics({ data, updateData }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-2">{t('intake.gender')}</label>
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-2">{t('intake.gender')}</label>
         <select
           value={data.gender}
           onChange={e => updateData({ gender: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer text-sm md:text-base"
         >
           <option value="" className="bg-charcoal">{t('intake.selectGender')}</option>
           {GENDER_OPTIONS.map(opt => (
@@ -86,33 +75,33 @@ export default function StepDemographics({ data, updateData }) {
         </select>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4">
-        <label className="flex items-center gap-3 cursor-pointer group flex-1 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-accent/30">
+      <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+        <label className="flex items-center gap-2 md:gap-3 cursor-pointer group flex-1 p-2 md:p-3 rounded-xl bg-white/5 border border-white/10 hover:border-accent/30">
           <input
             type="checkbox"
             checked={data.isVeteran}
             onChange={e => updateData({ isVeteran: e.target.checked })}
-            className="w-5 h-5 rounded text-accent"
+            className="w-4 md:w-5 h-4 md:h-5 rounded text-accent"
           />
-          <span className="text-white/70 group-hover:text-white">{t('intake.veteran')}</span>
+          <span className="text-xs md:text-sm text-white/70 group-hover:text-white">{t('intake.veteran')}</span>
         </label>
-        <label className="flex items-center gap-3 cursor-pointer group flex-1 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-accent/30">
+        <label className="flex items-center gap-2 md:gap-3 cursor-pointer group flex-1 p-2 md:p-3 rounded-xl bg-white/5 border border-white/10 hover:border-accent/30">
           <input
             type="checkbox"
             checked={data.hasDisability}
             onChange={e => updateData({ hasDisability: e.target.checked })}
-            className="w-5 h-5 rounded text-accent"
+            className="w-4 md:w-5 h-4 md:h-5 rounded text-accent"
           />
-          <span className="text-white/70 group-hover:text-white">{t('intake.disability')}</span>
+          <span className="text-xs md:text-sm text-white/70 group-hover:text-white">{t('intake.disability')}</span>
         </label>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white/70 mb-2">{t('intake.immigrationStatus')}</label>
+        <label className="block text-xs md:text-sm font-medium text-white/70 mb-2">{t('intake.immigrationStatus')}</label>
         <select
           value={data.immigrationStatus}
           onChange={e => updateData({ immigrationStatus: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 appearance-none cursor-pointer text-sm md:text-base"
         >
           <option value="" className="bg-charcoal">{t('intake.selectImmigration')}</option>
           {IMMIGRATION_OPTIONS.map(opt => (

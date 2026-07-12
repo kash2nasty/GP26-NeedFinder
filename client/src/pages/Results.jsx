@@ -19,7 +19,6 @@ export default function Results() {
 
   const [programs, setPrograms] = useState([]);
   const [intake, setIntake] = useState(null);
-  const [firstName, setFirstName] = useState('');
   const [resources, setResources] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [savedPrograms, setSavedPrograms] = useState([]);
@@ -42,7 +41,6 @@ export default function Results() {
           setPrograms(shared.programs);
           loadedIntake = shared.intake;
           setIntake(shared.intake);
-          setFirstName(shared.intake?.firstName || '');
           if (shared.language) i18n.changeLanguage(shared.language);
         } else {
           const stored = sessionStorage.getItem('northeastassist-results');
@@ -51,7 +49,6 @@ export default function Results() {
             setPrograms(parsed.programs);
             loadedIntake = parsed.intake;
             setIntake(parsed.intake);
-            setFirstName(parsed.firstName || '');
             setCurrentSessionId(parsed.sessionId);
           } else {
             navigate('/intake');
@@ -155,62 +152,60 @@ export default function Results() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="font-display text-3xl md:text-4xl font-bold mb-2">
-            {firstName
-              ? t('results.titleWithName', { name: firstName })
-              : t('results.title')}
+          <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
+            {t('results.title')}
           </h1>
-          <p className="text-white/50">{t('results.subtitle')}</p>
-          <p className="text-accent text-sm mt-2">
+          <p className="text-white/50 text-sm md:text-base">{t('results.subtitle')}</p>
+          <p className="text-accent text-xs md:text-sm mt-2">
             {t('results.programsFound', { count: programs.length })}
           </p>
         </motion.div>
 
         {/* Actions */}
-        <div className="flex flex-wrap gap-3 mb-8">
-          <button onClick={handleShare} className="btn-outline text-sm py-2 px-4 flex items-center gap-2">
-            <Share2 size={16} />
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
+          <button onClick={handleShare} className="btn-outline text-xs md:text-sm py-2 px-3 md:px-4 flex items-center gap-2">
+            <Share2 size={14} />
             {shareCopied ? t('results.shareCopied') : t('results.share')}
           </button>
-          <Link to="/intake" className="btn-outline text-sm py-2 px-4 flex items-center gap-2">
-            <RotateCcw size={16} />
+          <Link to="/intake" className="btn-outline text-xs md:text-sm py-2 px-3 md:px-4 flex items-center gap-2">
+            <RotateCcw size={14} />
             {t('results.startOver')}
           </Link>
         </div>
 
         {/* View toggle */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6 md:mb-8">
           <button
             onClick={() => setViewMode('list')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 ${
               viewMode === 'list'
                 ? 'bg-accent text-navy'
                 : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
             }`}
           >
-            <List size={16} />
+            <List size={14} />
             {t('results.listView') || 'List View'}
           </button>
           <button
             onClick={() => setViewMode('calendar')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 ${
               viewMode === 'calendar'
                 ? 'bg-accent text-navy'
                 : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
             }`}
           >
-            <Calendar size={16} />
+            <Calendar size={14} />
             {t('results.calendarView') || 'Calendar View'}
           </button>
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat
                   ? 'bg-accent text-navy'
                   : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
@@ -225,7 +220,7 @@ export default function Results() {
 
         {/* Program cards or calendar */}
         {viewMode === 'list' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-16">
             <AnimatePresence mode="popLayout">
               {filteredPrograms.length > 0 ? (
                 filteredPrograms.map(program => (
@@ -242,7 +237,7 @@ export default function Results() {
             </AnimatePresence>
           </div>
         ) : (
-          <div className="mb-16">
+          <div className="mb-12 md:mb-16">
             <DeadlineCalendar programs={filteredPrograms} />
           </div>
         )}
@@ -254,8 +249,8 @@ export default function Results() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="font-display text-2xl font-bold mb-2">{t('results.nearbyTitle')}</h2>
-          <p className="text-white/50 text-sm mb-6">{t('results.nearbySubtitle')}</p>
+          <h2 className="font-display text-xl md:text-2xl font-bold mb-2">{t('results.nearbyTitle')}</h2>
+          <p className="text-white/50 text-xs md:text-sm mb-6">{t('results.nearbySubtitle')}</p>
           <ResourceMap resources={resources} state={intake?.state || 'PA'} />
         </motion.div>
 

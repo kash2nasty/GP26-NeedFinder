@@ -15,8 +15,8 @@ export default function StepLocation({ data, updateData }) {
       className="space-y-6"
     >
       <div>
-        <h2 className="font-display text-2xl font-bold mb-1">{t('intake.step1Title')}</h2>
-        <p className="text-white/50 text-sm">{t('intake.step1Desc')}</p>
+        <h2 className="font-display text-xl md:text-2xl font-bold mb-1">{t('intake.step1Title')}</h2>
+        <p className="text-white/50 text-xs md:text-sm">{t('intake.step1Desc')}</p>
       </div>
 
       <div>
@@ -24,7 +24,7 @@ export default function StepLocation({ data, updateData }) {
         <select
           value={data.state}
           onChange={e => updateData({ state: e.target.value, county: '' })}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50 transition-colors appearance-none cursor-pointer"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 transition-colors appearance-none cursor-pointer text-sm md:text-base"
         >
           <option value="" className="bg-charcoal">{t('intake.selectState')}</option>
           {NORTHEAST_STATES.map(s => (
@@ -41,7 +41,7 @@ export default function StepLocation({ data, updateData }) {
           value={data.county}
           onChange={e => updateData({ county: e.target.value })}
           disabled={!data.state}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent/50 transition-colors appearance-none cursor-pointer disabled:opacity-40"
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 md:px-4 py-2 md:py-3 text-white focus:outline-none focus:border-accent/50 transition-colors appearance-none cursor-pointer disabled:opacity-40 text-sm md:text-base"
         >
           <option value="" className="bg-charcoal">{t('intake.selectCounty')}</option>
           {counties.map(c => (

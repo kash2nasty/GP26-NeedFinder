@@ -10,13 +10,13 @@ const fadeUp = {
 };
 
 const team = [
-  { name: 'Advik' },
-  { name: 'Sofia' },
-  { name: 'Ella' },
-  { name: 'Aditi' },
-  { name: 'Kent' },
-  { name: 'Neel' },
-  { name: 'Claire' },
+  { name: 'Advik Kashyap' },
+  { name: 'Sofia Tang' },
+  { name: 'Ella Conger' },
+  { name: 'Aditi Patil' },
+  { name: 'Kent Foo' },
+  { name: 'Neel Rege' },
+  { name: 'Claire Englander' },
 ];
 
 export default function About() {
@@ -30,7 +30,7 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">About GP 26 NeedFinder</h1>
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">About GP 26 NeedFinder</h1>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
         </motion.div>
 
@@ -75,13 +75,13 @@ export default function About() {
             <h2 className="font-display text-2xl font-bold">Our Team</h2>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             {team.map(member => (
-              <div key={member.name} className="flex items-center gap-4 bg-white/5 rounded-2xl px-6 py-4 hover:bg-white/10 transition-colors">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-purple flex items-center justify-center text-navy font-display font-bold text-xl">
+              <div key={member.name} className="flex items-center gap-3 md:gap-4 bg-white/5 rounded-2xl px-4 md:px-6 py-3 md:py-4 hover:bg-white/10 transition-colors">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-accent to-purple flex items-center justify-center text-navy font-display font-bold text-lg md:text-xl">
                   {member.name[0]}
                 </div>
-                <p className="font-semibold text-lg">{member.name}</p>
+                <p className="font-semibold text-sm md:text-lg">{member.name}</p>
               </div>
             ))}
           </div>
